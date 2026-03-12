@@ -59,3 +59,13 @@ Once the package is downloaded, execute the following command in the terminal to
 
 ```bash
 sudo dpkg -i Nessus-10.x.x-debian10_amd64.deb
+```
+![Tenable Web](images/web-tenable.jpg)
+
+After installation, activate the Nessus daemon (nessusd) to start the service:
+
+```bash
+sudo systemctl start nessusd
+sudo systemctl enable nessusd
+```
+![Tenable Web](images/systemctl.jpg)
