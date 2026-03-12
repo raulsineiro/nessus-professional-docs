@@ -58,14 +58,36 @@ Before installation, the Nessus binary must be obtained from the official vendor
 Once the package is downloaded, execute the following command in the terminal to install it:
 
 ```bash
-sudo dpkg -i Nessus-10.x.x-debian10_amd64.deb
+dpkg -i Nessus-10.x.x-debian10_amd64.deb
 ```
-![Tenable Web](images/web-tenable.jpg)
+
+![Dpkg command](images/dpkg.jpg)
 
 After installation, activate the Nessus daemon (nessusd) to start the service:
 
 ```bash
-sudo systemctl start nessusd
-sudo systemctl enable nessusd
+systemctl start nessusd
+systemctl enable nessusd
 ```
-![Tenable Web](images/systemctl.jpg)
+
+![Systemctl commands](images/systemctl.jpg)
+
+### 3.3. Initial Setup
+Access the management console via https://localhost:8834.
+* **Security Note:**: A browser warning will appear due to the self-signed SSL certificate; select "Advanced" and "Proceed" to continue.
+
+![Warning Web](images/warning-web.jpg)
+
+* **Trial Activation:** Select the option **"Start a trial of Nessus Professional"**.
+
+![Nessus conf 2](images/conf-nessus-2.jpg)
+
+* **Registration:** In the following screen, provide your email address. You will receive an activation code in your inbox.
+* **License Activation:** After verifying your email and obtaining the **Activation Code**, press "Continue" to proceed.
+
+![Nessus conf 4](images/conf-nessus-4.jpg)
+
+* **User Account Creation:** Create your primary administrator account by defining a secure username and password.
+* **Plugin Initialization:** The system will automatically download and compile the vulnerability plugins. This is a vital step, as it defines the scanner's detection capabilities.
+
+![Initializing screen](images/initializing.jpg)
