@@ -58,7 +58,7 @@ Before installation, the Nessus binary must be obtained from the official vendor
 Once the package is downloaded, execute the following command in the terminal to install it:
 
 ```bash
-dpkg -i Nessus-10.x.x-debian10_amd64.deb
+dpkg -i Nessus-10.11.3-debian10_amd64.deb
 ```
 
 ![Dpkg command](images/dpkg.jpg)
@@ -91,3 +91,65 @@ Access the management console via https://localhost:8834.
 * **Plugin Initialization:** The system will automatically download and compile the vulnerability plugins. This is a vital step, as it defines the scanner's detection capabilities.
 
 ![Initializing screen](images/initializing.jpg)
+
+---
+
+## 4. Standard Operating Procedure: Vulnerability Scanning
+
+Once the plugin initialization is complete, we are ready to perform our first security assessment. 
+
+### 4.1. Selecting a Scan Policy
+Nessus offers a wide variety of templates tailored to different security needs. While we will utilize the **Basic Network Scan** for this deployment, it is important to understand the versatility of the tool. These are the most used templates:
+
+* **Basic Network Scan:** The "all-in-one" template. It provides comprehensive detection for common vulnerabilities, open ports, and system misconfigurations. It is the ideal choice for general-purpose discovery.
+* **Advanced Scan:** Allows granular control over every aspect of the scan, from port ranges to timing and specific plugin selection.
+* **Malware Scan:** Specifically designed to detect malicious processes and indicators of compromise (IoC) on a system.
+* **Compliance/Configuration Audits:** Used to verify that systems adhere to specific industry standards (e.g., CIS benchmarks or custom organizational policies).
+
+### 4.2. Configuring the Assessment
+To begin scanning our target (the vulnerable Ubuntu instance), we follow these steps:
+
+1. Click **"New Scan"** and select the **"Basic Network Scan"** template.
+
+![Templates](images/scan-templates.jpg)
+
+2. **Naming:** Assign a descriptive name to your project (e.g., `Lab_Scan_1`).
+3. **Folder Organization:** Organize your scans into folders to maintain a clean project structure.
+4. **Target Definition:** In the **"Targets"** field, input the IP address of your Ubuntu instance (e.g., `192.168.1.5`).
+
+![New scan](images/new-scan.jpg)
+
+5. **Save & Launch:** Click **"Save"** to store the policy, then click the **"Launch"** button (play icon) to begin the assessment.
+
+![Scan initiation](images/lab-exercises.jpg)
+
+---
+
+## 5. Reporting & Analysis of Results
+
+Once the scan is completed, the results must be interpreted to assess the organization's risk exposure. Nessus categorizes findings by severity, allowing security teams to prioritize remediation efforts based on the **CVSS (Common Vulnerability Scoring System)**.
+
+### 5.1. Summary Overview
+The scan summary provides a high-level assessment of the host's security posture.
+
+![Scan summary](images/scan-summary.jpg)
+
+* **Scan Duration:** 00:07:17.
+* **Findings:** Identified a total of 26 vulnerabilities, with at least one **Critical** issue that requires immediate attention.
+
+### 5.2. Vulnerability Analysis
+By accessing the **"Vulnerabilities"** tab, we obtain a detailed breakdown of every risk detected. 
+
+![Vulnerabilities](images/vulnerabilities.jpg)
+
+The most critical finding identified is the **"Canonical Ubuntu Linux EoL (14.04.x)"** (Plugin #201408). 
+
+* **Why is this Critical?** This version of Ubuntu reached its End of Life on April 25, 2019. It no longer receives security patches, meaning any new vulnerability discovered in the kernel or base libraries will remain unpatched, leaving the system completely exposed to exploitation.
+
+![Critical vulnerability](images/critical-vulnerability.jpg)
+
+### 5.3. Remediation Strategy
+For every finding, Nessus provides a **Solution**. In the case of the Critical EoL issue, the recommendation is:
+> *"Upgrade to a version of Canonical Ubuntu Linux that is currently supported."*
+
+In a professional production environment, this would trigger an immediate migration or upgrade project. Leaving an EoL system connected to the production network is a significant compliance violation (e.g., under PCI-DSS or GDPR standards).
