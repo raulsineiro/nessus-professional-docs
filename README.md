@@ -52,7 +52,7 @@ Before installation, the Nessus binary must be obtained from the official vendor
 2. Select the appropriate package: **Linux - Debian - amd64**.
 3. Download the `.deb` file to your target system (e.g., `~/Downloads`).
 
-![Tenable Web](img/web-tenable.jpg)
+![Tenable Web](images/web-tenable.jpg)
 
 ### 3.2. Installation on Linux (Debian/Kali)
 Once the package is downloaded, execute the following command in the terminal to install it:
